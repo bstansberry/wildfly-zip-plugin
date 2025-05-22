@@ -2,7 +2,15 @@
   ~ Copyright The WildFly Authors
   ~ SPDX-License-Identifier: Apache-2.0
   -->
+<!--
+   Defines a Plexus component to allow this plugin to function as
+   a Maven extension that defines new packaging type 'zip'.
 
+   The assumption is users of this packaging type will be migrating poms that previously used the 'pom'
+   packaging type. So, each uses the same default lifecycle mappings as the 'pom' type, but adds a mapping
+   for the `package` phase. This will result in migrated poms getting the same default executions as before,
+   plus an additional execution in `package`.
+-->
 <component-set>
     <components>
         <component>
@@ -14,23 +22,7 @@
                     <lifecycle>
                         <id>default</id>
                         <phases>
-                            <process-resources>
-                                org.apache.maven.plugins:maven-resources-plugin:resources
-                            </process-resources>
-                            <compile>
-                                org.apache.maven.plugins:maven-compiler-plugin:compile
-                            </compile>
-                            <process-test-resources>
-                                org.apache.maven.plugins:maven-resources-plugin:testResources
-                            </process-test-resources>
-                            <test-compile>
-                                org.apache.maven.plugins:maven-compiler-plugin:testCompile
-                            </test-compile>
-                            <test>
-                                org.apache.maven.plugins:maven-surefire-plugin:test
-                            </test>
                             <package>
-                                <!-- Replace maven-jar-plugin -->
                                 org.wildfly.plugins:wildfly-zip-plugin:package
                             </package>
                             <install>
@@ -42,22 +34,6 @@
                         </phases>
                     </lifecycle>
                 </lifecycles>
-            </configuration>
-        </component>
-        <component>
-            <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
-            <role-hint>zip</role-hint>
-            <implementation>
-                org.apache.maven.artifact.handler.DefaultArtifactHandler
-            </implementation>
-            <configuration>
-                <!--the extension used by Maven in the repository-->
-                <extension>zip</extension>
-                <!--the type used when specifying dependencies etc.-->
-                <type>zip</type>
-                <!--the packaging used when declaring an implementation of
-                  the packaging-->
-                <packaging>zip</packaging>
             </configuration>
         </component>
     </components>

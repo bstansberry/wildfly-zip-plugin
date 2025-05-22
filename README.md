@@ -17,8 +17,8 @@ Imagine a project where `maven-assembly-plugin` or some other tool produces a zi
     <groupId>com.example</groupId>
     <artifactId>foo-zip</groupId>
     <!-- Custom packaging type provided by Maven extension
-         org.wildfly.galleon.plugins:wildfly-galleon-maven-plugin -->
-    <packaging>galleon-feature-pack</packaging>
+         org.wildfly.plugins:wildfly-zip-plugin -->
+    <packaging>zip</packaging>
 
     ....
     
@@ -59,7 +59,7 @@ Imagine a project where `maven-assembly-plugin` or some other tool produces a zi
 
 The project provides a `package` mojo that attaches a specified file as the project's main artifact. It supports two configuration options:
 
-* `artifact-directory` -- directory where the artifact is located. Default to `${project.build.directory}`.
+* `artifact-directory` -- directory where the artifact is located. Defaults to `${project.build.directory}`.
 * `artifact-name` -- file name of the artifact. Defaults to `${project.artifactId}-${project.version}.zip`
 
 When the plugin is used as a maven extension (`<extensions>true</extensions>` in the plugin declaration), a `default-package` maven execution will run the `package` goal in the `package` phase.

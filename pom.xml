@@ -56,6 +56,7 @@
         <version.adoc-maven-plugin-descriptor>1.0.0.Alpha3</version.adoc-maven-plugin-descriptor>
         <version.org.apache.maven>3.8.4</version.org.apache.maven>
         <version.org.apache.maven.plugin-tools>3.6.4</version.org.apache.maven.plugin-tools>
+        <version.org.sonatype.plugins.nxrm3-maven-plugin>1.0.7</version.org.sonatype.plugins.nxrm3-maven-plugin>
 
         <!-- Checkstyle configuration -->
         <linkXRef>false</linkXRef>
@@ -185,7 +186,6 @@
                     <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
                     <goalPrefix>wfzip</goalPrefix>
                 </configuration>
-
                 <executions>
                     <execution>
                         <id>mojo-descriptor</id>
@@ -204,6 +204,20 @@
                             <goal>asciidoc-descriptor</goal>
                         </goals>
                         <phase>prepare-package</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- We don't use the maven-deploy-plugin, so
+                 set its default execution to phase 'none'.
+                 See jboss-release profile for what we use. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-deploy</id>
+                        <phase>none</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -262,22 +276,12 @@
                         </executions>
                     </plugin>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-deploy-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>default-deploy</id>
-                                <phase>none</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nxrm3-maven-plugin</artifactId>
-                        <version>1.0.7</version>
+                        <version>${version.org.sonatype.plugins.nxrm3-maven-plugin}</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <serverId>origin-repository-nx3.stage.jboss.org</serverId>
+                            <serverId>wildfly</serverId>
                             <nexusUrl>${nexus.url}</nexusUrl>
                             <repository>${nexus.repo}</repository>
                         </configuration>

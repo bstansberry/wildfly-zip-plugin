@@ -47,8 +47,8 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.release>11</maven.compiler.release>
 
-        <wildfly.repo.scm.connection>git@github.com:bstansberry/plexus-zip-components.git</wildfly.repo.scm.connection>
-        <wildfly.repo.scm.url>https://github.com/bstansberry/plexus-zip-components</wildfly.repo.scm.url>
+        <wildfly.repo.scm.connection>git@github.com:wildfly/plexus-zip-components.git</wildfly.repo.scm.connection>
+        <wildfly.repo.scm.url>https://github.com/wildfly/plexus-zip-components</wildfly.repo.scm.url>
 
         <nexus.url>https://origin-repository-nx3.stage.jboss.org/nexus3</nexus.url>
         <nexus.repo>wildfly</nexus.repo>

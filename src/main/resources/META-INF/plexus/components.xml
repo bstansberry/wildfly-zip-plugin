@@ -36,5 +36,21 @@
                 </lifecycles>
             </configuration>
         </component>
+        <component>
+            <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+            <role-hint>zip</role-hint>
+            <implementation>
+                org.apache.maven.artifact.handler.DefaultArtifactHandler
+            </implementation>
+            <configuration>
+                <!--the extension used by Maven in the repository-->
+                <extension>zip</extension>
+                <!--the type used when specifying dependencies etc.-->
+                <type>zip</type>
+                <!--the packaging used when declaring an implementation of
+                  the packaging-->
+                <packaging>zip</packaging>
+            </configuration>
+        </component>
     </components>
 </component-set>

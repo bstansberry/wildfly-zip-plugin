@@ -40,12 +40,12 @@
     </scm>
 
     <properties>
-        <!-- Require Java 17 -->
-        <required.java.build.version>[17,)</required.java.build.version>
-        <required.java.deploy.version>[17,18)</required.java.deploy.version>
-        <maven.compiler.target>17</maven.compiler.target>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.release>17</maven.compiler.release>
+        <!-- Require Java 11 -->
+        <required.java.build.version>[11,)</required.java.build.version>
+        <required.java.deploy.version>[11,12)</required.java.deploy.version>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.release>11</maven.compiler.release>
 
         <wildfly.repo.scm.connection>git@github.com:bstansberry/plexus-zip-components.git</wildfly.repo.scm.connection>
         <wildfly.repo.scm.url>https://github.com/bstansberry/plexus-zip-components</wildfly.repo.scm.url>
@@ -207,6 +207,29 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- Require the minimum Java version -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${version.enforcer.plugin}</version>
+                <executions>
+                    <execution>
+                        <id>require-java11-min</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>${required.java.build.version}</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -215,6 +238,29 @@
             <id>jboss-release</id>
             <build>
                 <plugins>
+
+                    <!-- Require the correct java version for releasing -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <version>${version.enforcer.plugin}</version>
+                        <executions>
+                            <execution>
+                                <id>require-java11-deploy</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <phase>validate</phase>
+                                <configuration>
+                                    <rules>
+                                        <requireJavaVersion>
+                                            <version>${required.java.deploy.version}</version>
+                                        </requireJavaVersion>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-deploy-plugin</artifactId>
